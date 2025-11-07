@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Premium Collection - RiseArc{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="fas fa-filter me-2"></i>Categories</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'products' %}" class="list-group-item list-group-item-action {% if not selected_category %}active{% endif %}">
+                            All Products
+                        </a>
+                        {% for category in categories %}
+                        <a href="{% url 'products' %}?category={{ category.id }}" 
+                           class="list-group-item list-group-item-action {% if selected_category == category.id %}active{% endif %}">
+                            {{ category.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="animate__animated animate__fadeInLeft">Premium <span class="gradient-text">Collection</span></h2>
+                <span class="badge" style="background: linear-gradient(45deg, #667eea, #764ba2); font-size: 1rem;">{{ products|length }} Premium Item{{ products|length|pluralize }}</span>
+            </div>
+            
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: {{ forloop.counter0|add:1 }}00ms;">
+                    <div class="card product-card h-100 floating-animation">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                        {% else %}
+                            {% if 'Polo' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Blazer' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Chinos' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Jeans' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Dress' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Jacket' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Scarf' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Blouse' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Watch' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Handbag' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Wallet' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Sunglasses' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Sneakers' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Oxford' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Loafers' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1582897085656-c636d006a246?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% elif 'Running' in product.name %}
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&h=600&fit=crop" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            {% endif %}
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text flex-grow-1">{{ product.description|truncatewords:15 }}</p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">${{ product.price }}</span>
+                                    <small class="text-muted">Stock: {{ product.stock }}</small>
+                                </div>
+                                <div class="mt-2">
+                                    <a href="{% url 'product_detail' product.id %}" class="btn btn-primary btn-sm w-100">
+                                        <i class="fas fa-eye me-1"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+                        <h4>No Products Found</h4>
+                        <p class="text-muted">No products available in this category.</p>
+                        <a href="{% url 'products' %}" class="btn btn-primary">View All Products</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

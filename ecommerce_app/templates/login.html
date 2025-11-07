@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - RiseArc{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-white text-center" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                    <h3 class="animate__animated animate__fadeInDown"><i class="fas fa-rocket me-2"></i>Welcome Back to RiseArc</h3>
+                </div>
+                <div class="card-body animate__animated animate__fadeInUp">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email/Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary pulse-animation">Rise & Login</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <p>Ready to Rise? <a href="{% url 'register' %}" class="gradient-text fw-bold">Join RiseArc Today</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

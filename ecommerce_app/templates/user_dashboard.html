@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - RiseArc{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-white" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                    <h5 class="animate__animated animate__fadeInLeft"><i class="fas fa-user-circle me-2"></i>RiseArc Profile</h5>
+                </div>
+                <div class="card-body text-center animate__animated animate__fadeInUp">
+                    {% if profile.profile_photo %}
+                        <img src="{{ profile.profile_photo.url }}" class="rounded-circle mb-3" width="100" height="100" style="object-fit: cover;">
+                    {% else %}
+                        <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="fas fa-user fa-2x text-muted"></i>
+                        </div>
+                    {% endif %}
+                    
+                    {% if profile %}
+                        <h5>{{ profile.full_name }}</h5>
+                        <p class="text-muted">{{ user.email }}</p>
+                        <span class="badge {% if profile.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                            {% if profile.is_active %}Active{% else %}Inactive{% endif %}
+                        </span>
+                    {% else %}
+                        <h5>{{ user.username }}</h5>
+                        <p class="text-muted">{{ user.email }}</p>
+                        <p class="text-warning">Profile not completed</p>
+                    {% endif %}
+                    
+                    <div class="mt-3">
+                        <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-edit me-1"></i>Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-white" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">
+                    <h5 class="animate__animated animate__fadeInRight"><i class="fas fa-id-card me-2"></i>Member Details</h5>
+                </div>
+                <div class="card-body">
+                    {% if profile %}
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Full Name:</th>
+                                <td>{{ profile.full_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{{ profile.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact Number:</th>
+                                <td>{{ profile.contact_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth:</th>
+                                <td>{{ profile.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <th>Account Status:</th>
+                                <td>
+                                    <span class="badge {% if profile.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                                        {% if profile.is_active %}Active{% else %}Inactive{% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Member Since:</th>
+                                <td>{{ profile.created_at|date:"F d, Y" }}</td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                            <h5>Profile Incomplete</h5>
+                            <p>Complete your RiseArc profile to unlock premium features.</p>
+                            <a href="{% url 'edit_profile' %}" class="btn btn-primary pulse-animation">Complete Profile</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header text-white" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24);">
+                    <h5 class="animate__animated animate__fadeInLeft"><i class="fas fa-shopping-bag me-2"></i>Your RiseArc Orders</h5>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>#{{ order.id }}</td>
+                                        <td>{{ order.created_at|date:"M d, Y" }}</td>
+                                        <td>${{ order.total_amount }}</td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ order.get_status_display }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                            <h5>No Orders Yet</h5>
+                            <p>Start shopping to see your orders here.</p>
+                            <a href="{% url 'products' %}" class="btn btn-primary">Browse Products</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
